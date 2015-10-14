@@ -13,7 +13,7 @@ The relevant Python code is in code/python.
 Acknowledgments go to several splendid open-source codes without which this work could not have been possible:
 
 **Matlab**:
-- m_map: http://www.eos.ubc.ca/~rich/map.html
+- [m_map](http://www.eos.ubc.ca/~rich/map.html)
 - panel: http://www.mathworks.com/matlabcentral/fileexchange/20003-panel
 - latextable: http://www.mathworks.com/matlabcentral/fileexchange/44274-latextable
 - wavelet toolbox: http://paos.colorado.edu/research/wavelets/

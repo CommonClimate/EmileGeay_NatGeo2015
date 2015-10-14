@@ -40,9 +40,9 @@ for r = 1:no
     end
     % assign plotting parameters
     if strcmp(archive{r},'coral')
-        mark(r)='o';   sz(r) = 12;
+        mark(r)='o';   sz(r) = 5;
     elseif strcmp(archive{r},'mollusk');
-        mark(r)='p';   sz(r) = 16;
+        mark(r)='p';   sz(r) = 6;
     end
 end
 col = {So.col};  sz2 = round(0.8*sz);
@@ -57,14 +57,14 @@ lbl{8} = 'Driscoll et al. [2014]';
 
 
 % =================================================
-%  SYNTHESIS FIGURES
+%%  Figure 1
 % =================================================
 load ../../../data/obs/NCEP_OIv2_SODA_SSS_1981_2010_djf.mat
 ilon = (lon>=100& lon <=300); ilat = (abs(lat)<=40);
 lon_tp = lon(ilon); lat_tp = lat(ilat);
 % graphical definitions
 ligr = rgb('Silver'); bck = rgb('Black');
-style_l = {'FontName','Helvetica','Fontsize',8,'FontWeight','bold'};
+style_l = {'FontName','Helvetica','Fontsize',6,'FontWeight','bold'};
 
 % proxy locations + ENSO composites
 % =================================================
@@ -76,15 +76,16 @@ set(hT,'edgecolor','none'); hold on
 colormap(cejulien2(21)); %colormap(pmkmp(17)); %
 ci = linspace(-0.4,0.4,6);
 m_coast('patch',ligr);
-m_grid('box','off','xtick',6,'ytick',7,'xlabeldir','middle', 'fontsize',8,'fontname','Monaco');
+m_grid('box','off','xtick',6,'ytick',7,'xlabeldir','middle', 'fontsize',4,'fontname','Helvetica');
 hc = colorbar2('horiz','\delta^{18}O (permil)');
+set(hc,'Position',[0.1300    0.250    0.7750    0.0407],style_l{:})
 % add boxes.
 h1 = m_line([120 120 180 180 120], [-20 0 0 -20 -20],'color',bck,'linewidth',1,'linestyle','-.');
 h3 = m_line([270 270 280 280 270], [-10 0 0 -10 -10],'color',bck,'linewidth',1,'linestyle','-.');
 h2 = m_line([190 190 240 240 190], [-5  5 5  -5  -5],'color',bck,'linewidth',1,'linestyle','-.');
 % add proxies
 for r=1:no
-    hla(r)= m_line(c_lon(r),c_lat(r),'marker',mark(r),'MarkerEdgeColor',bck,'MarkerFaceColor',So(r).col,'Color',So(r).col,'linewidth',[1],'MarkerSize',sz(r),'linestyle','none');
+    hla(r)= m_line(c_lon(r),c_lat(r),'marker',mark(r),'MarkerEdgeColor',bck,'MarkerFaceColor',So(r).col,'Color',So(r).col,'linewidth',[0.5],'MarkerSize',sz(r),'linestyle','none');
     %
     if strcmp(archive{r},'coral')
         h1 = hla(r); kc = r;
@@ -94,19 +95,20 @@ for r=1:no
 end
 % legend
 h = [h1 h2];  lab = {'Coral', 'Mollusk'};
-[legend_h,object_h,plot_h,text_strings] = columnlegend_h(2, h(:), lab,'location','SouthOutside','boxoff');
+[legend_h,object_h,plot_h,text_strings] = columnlegend_h(2, h, lab,'location','SouthOutside','boxoff');
 set(object_h(6),'MarkerFaceColor','w','linewidth',1),
 set(object_h(4),'MarkerFaceColor','w','linewidth',1);
-set(legend_h,style_l{:},'Outerposition',[0.2 0.1 0.6 0.3]),
-ht = title(['Proxy locations & El Niño composite \delta^{18}O']);
-set(ht,'FontName','Monaco','Fontsize',10,'FontWeight','bold');
+set(legend_h,'Position',[0.2    0.2401    0.6201    0.1634]),
+set(legend_h,'FontSize',6)
+%ht = title(['Proxy locations & El Nino composite \delta^{18}O']);
+%set(ht,'FontName','Helvetica','Fontsize',8,'FontWeight','bold');
 if export
     hepta_figprint('../../../figs/Fig01.eps');
 end
 
 
 % ===================================
-%% INTERANNUAL AND SEASONAL VARIATIONS
+%% Figure 2: INTERANNUAL AND SEASONAL VARIATIONS
 % ===================================
 seas = find(~isnan([So.seasonal_amp])); ns = numel(seas);
 site_s = site(seas); ref_s  = ref(seas);
@@ -125,7 +127,7 @@ reg_ind{2} = find(c_lon > 180 & c_lon < 240);
 reg_ind{3} = find(c_lon > 240);
 col = {So(:).col};
 % load PMIP3 data
-load ../models/PMIP3_ratios_distrib3.mat
+load ../../../data/pmip3/PMIP3_ratios_distrib3.mat
 % assign plotting parameters
 nm = length(models);
 %cmap = copper(nm);
@@ -139,10 +141,13 @@ ylims = [0 3]; ymh = [0 3]; yls = [0 4]; ypi = [0 2.5];  yls_mh = [0 4];
 yseas  =[0 3];
 % plot the darn thing
 fig('Regional breakdown'), clf
+set(gcf, 'Units','centimeters', 'Position',[0 0 17 12])
+set(gcf, 'PaperPositionMode','auto')
 p = panel();
 p.pack([5 90 5]);
 p(2).pack([1/3 1/3 1/3],[1/2 1/2]);
-p.fontsize = 10; p.fontname = 'Monaco';
+p.fontsize = 10; p.fontname = 'Helvetica';
+
 
 for jr = 1:3
     % ENSO VARIANCE
@@ -172,7 +177,7 @@ for jr = 1:3
         rmed = ratio_vec(I);
         line([rmed rmed],[0 f(I)],'color',cmap(m,:),'linestyle','-.','linewidth',1);
     end
-    xlim(ylims); xlabel(region{jr},'fontsize',14,'fontweight','bold','fontname','Monaco'),
+    xlim(ylims); xlabel(region{jr},'fontsize',14,'fontweight','bold','fontname','Helvetica'),
     set(gca,'box','off'), ylim(ypi);
     set(gca,'Box', 'off', 'TickDir','out','TickLength',[.02 .02],'XMinorTick','on','YMinorTick','on', 'XGrid','on')
     set(gca,'XColor' , [.3 .3 .3], 'YColor', [.3 .3 .3], 'LineWidth', 1);
@@ -247,32 +252,32 @@ for jr = 1:3
 end
 %  FIX LABELS
 p(2,1,1,1).select()
-title('PI','fontsize',14, 'fontweight','bold');
+title('PI','fontsize',12, 'fontweight','bold');
 p(2,1,1,2).select()
-title('MH','fontsize',14, 'fontweight','bold');
+title('MH','fontsize',12, 'fontweight','bold');
 p(2,1,1,3).select()
-title('Observations','fontsize',14, 'fontweight','bold');
+title('Observations','fontsize',12, 'fontweight','bold');
 % main titles
-text(-10,4,'ENSO variance ratio','fontsize',16, 'fontweight','bold');
-text(10,4,'AC amplitude ratio','fontsize',16, 'fontweight','bold');
+text(-10,5,'ENSO variance ratio','fontsize',14, 'fontweight','bold');
+text(10,5,'AC amplitude ratio','fontsize',14, 'fontweight','bold');
 %
 p(2,1,2,1).select()
-title('PI','fontsize',14, 'fontweight','bold');
+title('PI','fontsize',12, 'fontweight','bold');
 p(2,1,2,2).select()
-title('MH','fontsize',14, 'fontweight','bold');
+title('MH','fontsize',12, 'fontweight','bold');
 p(2,1,2,3).select()
-title('Observations','fontsize',14, 'fontweight','bold');
+title('Observations','fontsize',12, 'fontweight','bold');
 %
 p(2,3,1,1).select()
 ylabel('Density','fontsize',10);
 p(2,3,1,3).select()
-fancyplot_deco('','Time (ky BP)','',12);
+fancyplot_deco('','Time (ky BP)','',10);
 p(2,3,1,2).select()
 ylabel('Density');
 p(2,3,2,1).select()
 ylabel('Density');
 p(2,3,2,3).select()
-fancyplot_deco('','Time (ky BP)','',12);
+fancyplot_deco('','Time (ky BP)','',10);
 p(2,3,2,2).select()
 ylabel('Density');
 
@@ -281,13 +286,14 @@ p(3).select()
 set(gca,'visible','off')
 [legend_h,object_h,plot_h,text_strings] = columnlegend_h(4, hpi_m, models,'location','Best','box','on');
 uistack(legend_h,'top')
-set(object_h(9:24),'linewidth',1);
+set(object_h(9:24),'LineWidth',2);
 set(legend_h,'position', [0.15   -0.06    0.3800    0.1334])
 
 % print out
 if export
-    hepta_figprint('../../figs/variance_ratios_regional_kde6',400);
+    hepta_figprint('../../../figs/Fig02',800);
 end
+
 % cube_helix colormap
 %cmap = cubehelix(10,.5,-1.5,3,1,[.2,1],[0,1])
 % fig, hold on
@@ -309,7 +315,7 @@ end
 
 
 
-% Probability exercise:
+%% Probability exercise:
 % ====================
 % central Pacific reduction
 no = length(So);

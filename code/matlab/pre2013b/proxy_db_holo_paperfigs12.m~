@@ -45,7 +45,7 @@ for r = 1:no
         mark(r)='p';   sz(r) = 6;
     end
 end
-col = {So.col};  sz2 = round(0.8*sz);
+col = {So.col};  
 lbl{1} = 'Duprey et al. [2012]';
 lbl{2} = 'this study';
 lbl{3} = 'Cobb et al. [2013]';
@@ -57,7 +57,7 @@ lbl{8} = 'Driscoll et al. [2014]';
 
 
 % =================================================
-%  SYNTHESIS FIGURES
+%%  Figure 1
 % =================================================
 load ../../../data/obs/NCEP_OIv2_SODA_SSS_1981_2010_djf.mat
 ilon = (lon>=100& lon <=300); ilat = (abs(lat)<=40);
@@ -108,7 +108,7 @@ end
 
 
 % ===================================
-%% INTERANNUAL AND SEASONAL VARIATIONS
+%% Figure 2: INTERANNUAL AND SEASONAL VARIATIONS
 % ===================================
 seas = find(~isnan([So.seasonal_amp])); ns = numel(seas);
 site_s = site(seas); ref_s  = ref(seas);
@@ -147,6 +147,7 @@ p = panel();
 p.pack([5 90 5]);
 p(2).pack([1/3 1/3 1/3],[1/2 1/2]);
 p.fontsize = 10; p.fontname = 'Helvetica';
+sz2 = round(1.2*sz);
 
 for jr = 1:3
     % ENSO VARIANCE
@@ -251,47 +252,48 @@ for jr = 1:3
 end
 %  FIX LABELS
 p(2,1,1,1).select()
-title('PI','fontsize',14, 'fontweight','bold');
+title('PI','fontsize',12, 'fontweight','bold');
 p(2,1,1,2).select()
-title('MH','fontsize',14, 'fontweight','bold');
+title('MH','fontsize',12, 'fontweight','bold');
 p(2,1,1,3).select()
-title('Observations','fontsize',14, 'fontweight','bold');
+title('Observations','fontsize',12, 'fontweight','bold');
 % main titles
-text(-10,4,'ENSO variance ratio','fontsize',16, 'fontweight','bold');
-text(10,4,'AC amplitude ratio','fontsize',16, 'fontweight','bold');
+text(-10,5,'ENSO variance ratio','fontsize',14, 'fontweight','bold');
+text(10,5,'AC amplitude ratio','fontsize',14, 'fontweight','bold');
 %
 p(2,1,2,1).select()
-title('PI','fontsize',14, 'fontweight','bold');
+title('PI','fontsize',12, 'fontweight','bold');
 p(2,1,2,2).select()
-title('MH','fontsize',14, 'fontweight','bold');
+title('MH','fontsize',12, 'fontweight','bold');
 p(2,1,2,3).select()
-title('Observations','fontsize',14, 'fontweight','bold');
+title('Observations','fontsize',12, 'fontweight','bold');
 %
 p(2,3,1,1).select()
 ylabel('Density','fontsize',10);
 p(2,3,1,3).select()
-fancyplot_deco('','Time (ky BP)','',12);
+fancyplot_deco('','Time (ky BP)','',10);
 p(2,3,1,2).select()
 ylabel('Density');
 p(2,3,2,1).select()
 ylabel('Density');
 p(2,3,2,3).select()
-fancyplot_deco('','Time (ky BP)','',12);
+fancyplot_deco('','Time (ky BP)','',10);
 p(2,3,2,2).select()
 ylabel('Density');
 
 % make legend
 p(3).select()
 set(gca,'visible','off')
-[legend_h,object_h,plot_h,text_strings] = columnlegend_h(4, hpi_m, models,'location','Best','box','on');
-uistack(legend_h,'top')
-set(object_h(9:24),'linewidth',1);
-set(legend_h,'position', [0.15   -0.10    0.3800    0.1334],'FontSize',6)
+% [legend_h,object_h,plot_h,text_strings] = columnlegend_h(4, hpi_m, models,'location','Best','box','on');
+% uistack(legend_h,'top')
+% set(object_h(9:24),'LineWidth',2);
+% set(legend_h,'position', [0.15   -0.06    0.3800    0.1334])
 
 % print out
 if export
-    hepta_figprint('../../figs/variance_ratios_regional_kde6',400);
+    hepta_figprint('../../../figs/Fig02raw',800);
 end
+
 % cube_helix colormap
 %cmap = cubehelix(10,.5,-1.5,3,1,[.2,1],[0,1])
 % fig, hold on
@@ -313,7 +315,7 @@ end
 
 
 
-% Probability exercise:
+%% Probability exercise:
 % ====================
 % central Pacific reduction
 no = length(So);

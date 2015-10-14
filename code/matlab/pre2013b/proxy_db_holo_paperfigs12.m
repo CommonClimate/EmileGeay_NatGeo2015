@@ -45,7 +45,7 @@ for r = 1:no
         mark(r)='p';   sz(r) = 6;
     end
 end
-col = {So.col};  sz2 = round(0.8*sz);
+col = {So.col};  
 lbl{1} = 'Duprey et al. [2012]';
 lbl{2} = 'this study';
 lbl{3} = 'Cobb et al. [2013]';
@@ -147,7 +147,7 @@ p = panel();
 p.pack([5 90 5]);
 p(2).pack([1/3 1/3 1/3],[1/2 1/2]);
 p.fontsize = 10; p.fontname = 'Helvetica';
-
+sz2 = round(1.2*sz);
 
 for jr = 1:3
     % ENSO VARIANCE
@@ -284,14 +284,14 @@ ylabel('Density');
 % make legend
 p(3).select()
 set(gca,'visible','off')
-[legend_h,object_h,plot_h,text_strings] = columnlegend_h(4, hpi_m, models,'location','Best','box','on');
-uistack(legend_h,'top')
-set(object_h(9:24),'LineWidth',2);
-set(legend_h,'position', [0.15   -0.06    0.3800    0.1334])
+% [legend_h,object_h,plot_h,text_strings] = columnlegend_h(4, hpi_m, models,'location','Best','box','on');
+% uistack(legend_h,'top')
+% set(object_h(9:24),'LineWidth',2);
+% set(legend_h,'position', [0.15   -0.06    0.3800    0.1334])
 
 % print out
 if export
-    hepta_figprint('../../../figs/Fig02',800);
+    hepta_figprint('../../../figs/Fig02raw',800);
 end
 
 % cube_helix colormap

@@ -32,7 +32,7 @@ M(n).lon  = 147.5; M(n).lat  = -6.5;
 %  fill in specific information
 M(n).sample_id = 'HU04MT7';
 M(n).modern_id = 'HU04MT7';
-[MT7,TXT,RAW] = xlsread('../data/HU04MT7.xls');  % about 16 years, no trend
+[MT7,TXT,RAW] = xlsread('../../../data/obs/HU04MT7.xls');  % about 16 years, no trend
 M(n).year_i = 1986; M(n).age_std = 0; % no uncertainty within machine precision. 
 M(n).chron = M(n).year_i + MT7(:,1); t_raw = M(n).chron; 
 [X,t,Xr,tr,mr,yr,npy,mRes,dt] = coral_interp(MT7(:,1),MT7(:,2));
@@ -59,7 +59,7 @@ M(n).citekey   = 'Driscoll_2013';
 
 M(n).sample_id = 'HU04T58'; 
 M(n).modern_id = 'HU04MT7';
-T58 = csvread('../data/HU04T58_new.csv');  % ~22 years, huge trend
+T58 = csvread('../../../data/obs/HU04T58_new.csv');  % ~22 years, huge trend
 [X,t,Xr,tr,mr,yr,npy,mRes,dt] = coral_interp(T58(:,1),T58(:,2));
 [Xa,Xc] = coral_remove_seas(t,X,tr,Xr,mr,yr,npy,M(n).site);
 
@@ -82,7 +82,7 @@ M(n).seasonal_amp = range(Xc);
 % % fill in specifics
 % M(n).sample_id = 'HU04T66';
 % M(n).modern_id = 'HU04MT7';
-% T66           = csvread('../data/HU04T66.csv',1,0,'A2..B79');% ~7 years, no trend
+% T66           = csvread('../../../data/obs/HU04T66.csv',1,0,'A2..B79');% ~7 years, no trend
 % M(n).year_i = 1950 - 6.54*1000;  
 % M(n).age_std = 380/2;  % divide by two to obtain 1-sigma error
 % M(n).chron = M(n).year_i + T66(:,1); 
@@ -102,7 +102,7 @@ M(n) = M(n-1); % fill in generalities
 % fill in specifics
 M(n).sample_id = 'HU04T75';
 M(n).modern_id = 'HU04MT7';
-T75 = csvread('../data/HU04T75_new.csv');  % ~22 years, huge trend
+T75 = csvread('../../../data/obs/HU04T75_new.csv');  % ~22 years, huge trend
 [X,t,Xr,tr,mr,yr,npy,mRes,dt] = coral_interp(T75(:,1),T75(:,2));
 [Xa,Xc] = coral_remove_seas(t,X,tr,Xr,mr,yr,npy,M(n).site);
 
@@ -117,7 +117,7 @@ M(n).data = M(n).anom;
 M(n).res = 12*mode(diff(M(n).chron));
 M(n).seasonal_amp = range(Xc);
 
-% [T75,TXT,RAW] = xlsread('../data/HU04T75.xls');  % ~13 years, variance fanning out
+% [T75,TXT,RAW] = xlsread('../../../data/obs/HU04T75.xls');  % ~13 years, variance fanning out
 % M(n).year_i = 1950 - 8.76*1000;  
 % M(n).age_std = 460/2;  % divide by two to obtain 1-sigma error
 % M(n).chron = M(n).year_i + T75(:,1); 
@@ -142,7 +142,7 @@ M(n) = M(n-1); % fill in generalities
 % fill in specifics
 M(n).sample_id = 'HU04T73';
 M(n).modern_id = 'HU04MT7';
-T73 = csvread('../data/HU04T73_new.csv');  % ~22 years, huge trend
+T73 = csvread('../../../data/obs/HU04T73_new.csv');  % ~22 years, huge trend
 [X,t,Xr,tr,mr,yr,npy,mRes,dt] = coral_interp(T73(:,1),T73(:,2));
 [Xa,Xc] = coral_remove_seas(t,X,tr,Xr,mr,yr,npy,M(n).site);
 
@@ -157,7 +157,7 @@ M(n).data = M(n).anom;
 M(n).res = 12*mode(diff(M(n).chron));
 M(n).seasonal_amp = range(Xc);
 
-% [T73,TXT,RAW] = xlsread('../data/HU04T73.xls');  
+% [T73,TXT,RAW] = xlsread('../../../data/obs/HU04T73.xls');  
 % M(n).year_i = 1950 - 7.28*1000;   	
 % M(n).age_std = 120/2;  % divide by two to obtain 1-sigma error
 % M(n).chron = M(n).year_i + T73(:,1); 
@@ -203,10 +203,10 @@ end
 % ==================================================================
 fname = '/Users/jeg/Dropbox/PalaeoVar_Working_Folder/MH_synthesis/data/Peru_ENSO-Var_dataset.xls';
 [Peru,TXT,RAW] = xlsread(fname,'reduced-grouped'); 
-%[Peru-r,TXT,RAW] = xlsread('../data/Peru_ENSO-Var_dataset.xls','reduced-grouped'); 
+%[Peru-r,TXT,RAW] = xlsread('../../../data/obs/Peru_ENSO-Var_dataset.xls','reduced-grouped'); 
 sigma = [Peru(:,4) Peru(:,6)];
-load('../data/Quantiles_Carre_orig.mat');
-load('../data/Quantiles_Carre_ratios.mat');
+load('../../../data/obs/Quantiles_Carre_orig.mat');
+load('../../../data/obs/Quantiles_Carre_ratios.mat');
 
 % Modern sample
 % ==============
@@ -408,7 +408,7 @@ for j = np:n
 end
 
 % save it all
-save '../data/mollusk_db_holo.mat' M
+save '../../../data/obs/mollusk_db_holo.mat' M
 
 
 

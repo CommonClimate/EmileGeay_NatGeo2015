@@ -1,5 +1,5 @@
 clear, load JEG_graphics
-load  '../data/proxy_db_holo_synthesis.mat' 
+load  '../../data/proxy_db_holo_synthesis.mat' 
 
 %  Select seasonally resolved records
 res = [Sr.res];

@@ -1,5 +1,5 @@
 clear, load JEG_graphics
-load  '../data/proxy_db_holo_synthesis.mat' 
+load  '../../../data/obs/proxy_db_holo_synthesis.mat' 
 
 %  Select seasonally resolved records
 res = [Sr.res];
@@ -49,9 +49,9 @@ for r = 1:ns
    end
     % assign plotting parameters
    if strcmp(archive{r},'coral')
-      mark(r)='o';   sz(r) = 12;
+      mark(r)='o';   sz(r) = 6;
    elseif strcmp(archive{r},'mollusk');
-      mark(r)='p';   sz(r) = 16;
+      mark(r)='p';   sz(r) = 6;
    end
 end
 %
@@ -69,7 +69,7 @@ lbl{8} = 'Driscoll et al. [2014]';
 %
 % regression variables
 Xo = [Ss.seasonal_amp_ratio];  Yo = [Ss.enso_var_ratio];
-Nb = 2000; % number of bootstrap samples
+Nb = 1000; % number of bootstrap samples
 
 %  load data from proxies
 % ================================================
@@ -90,7 +90,7 @@ Po_boot = bootstrp(Nb, @fitTLS,Xos,Yos);
 Po_se = std(Po_boot(:,1)); % slope comes first, then offset. 
 
 % generate family of lines
-del = 0.2;
+del = 0.5;
 xo = [0:del:20]; nxo = numel(xo);
 Yo_hats = polyval(Po,xo);
 Lo = zeros(Nb,nxo); %matrix of regression lines
@@ -107,7 +107,7 @@ Loq = quantile(Lo,[0.025 0.975],1);
 %colormap(brewermap(21,'Purples'))
 %  load data from proxies PMIP3 GCMs
 % ==========================================
-load ../models/PMIP3_ratios_distrib3.mat
+load ../../../data/pmip3/PMIP3_ratios_distrib3.mat
 nm = length(models);
 for j = 1:3
     Xm(1:nm,j)          = seas_amp_ratio.quant.PIHT(:,j,3);
@@ -204,6 +204,7 @@ Lmq = quantile(Lm,[0.025 0.975],1);
 
 % PLOT IT OUT
 fig('ENSO_var vs seasonality'), clf
+%set(gcf, 'Units','centimeters', 'Position',[0 0 9 7]) % 1 column width = 9cm
 subplot(2,1,1)
 % plot PDF for TLS fit
 pcolor(xo,yo,Lo_dens'), shading interp
@@ -257,7 +258,7 @@ labl{2} = 'TLS fit, 95% CI';
 hl = legend(ah,[h2 hci(1)],labl{:}), set(hl,style_l{:}), 
 set(hl,'location','southwest','box','off');
 % export
-hepta_figprint('../figs/enso_var_vs_seas_ratios_obs_models4',100);
+hepta_figprint('../../../figs/Fig03_raw',200);
 
 
 

@@ -12,15 +12,14 @@ The relevant Python code is in code/python.
 
 Acknowledgments go to several splendid open-source codes without which this work could not have been possible:
 
-**Matlab**:
+**Matlab**
 - [m_map](http://www.eos.ubc.ca/~rich/map.html)
-- panel: http://www.mathworks.com/matlabcentral/fileexchange/20003-panel
-- latextable: http://www.mathworks.com/matlabcentral/fileexchange/44274-latextable
-- wavelet toolbox: http://paos.colorado.edu/research/wavelets/
+- [panel](http://www.mathworks.com/matlabcentral/fileexchange/20003-panel)
+- [latextable](http://www.mathworks.com/matlabcentral/fileexchange/44274-latextable)
+- [wavelet toolbox](http://paos.colorado.edu/research/wavelets/)
+- [Total Least Squares](http://www.mathworks.com/matlabcentral/fileexchange/31109-total-least-squares-method)
 **Python**
-- seaborn: http://stanford.edu/~mwaskom/software/seaborn/
-- pylab:
-- spyder:
-- anaconda:  
+- [seaborn](http://stanford.edu/~mwaskom/software/seaborn/)
+- [anaconda](https://www.continuum.io/downloads)  
 
-I have tried to honor licenses, but please let me know if I strayed.
+I have tried to honor licenses, but please let me know if I have strayed.

@@ -10,7 +10,7 @@ a mat file containing the result of the block-bootstrap sampling of PMIP3 result
 
 The relevant Python code is in code/python.
 
-Acknowledgments go to several splendid open-source codes without which this work could not have been possible:
+Acknowledgments go to several splendid open-source codes without which this work would have been markedly more painful, if not impossible:
 
 **Matlab**
 - [m_map](http://www.eos.ubc.ca/~rich/map.html)

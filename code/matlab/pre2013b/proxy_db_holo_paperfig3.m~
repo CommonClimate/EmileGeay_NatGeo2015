@@ -49,9 +49,9 @@ for r = 1:ns
    end
     % assign plotting parameters
    if strcmp(archive{r},'coral')
-      mark(r)='o';   sz(r) = 6;
+      mark(r)='o';   sz(r) = 12;
    elseif strcmp(archive{r},'mollusk');
-      mark(r)='p';   sz(r) = 6;
+      mark(r)='p';   sz(r) = 16;
    end
 end
 %
@@ -158,7 +158,7 @@ for m = 1:2*nm
     else mrkr{m} = 's';    str = 'MH';
     end     
     for j = 1:3
-        hm(m) = line(Xm(m,j),Ym(m,j),'MarkerFaceColor',colm(m,:),'marker',mrkr{m},'Markersize',10,'MarkerEdgeColor',bck);
+        hm(m) = line(Xm(m,j),Ym(m,j),'MarkerFaceColor',colm(m,:),'marker',mrkr{m},'Markersize',8,'MarkerEdgeColor',bck);
         rectangle('Curvature', [1 1],'Position',[Xm(m,j)-Xm_iqr(m,j)/2 Ym(m,j)-Ym_iqr(m,j)/2 Xm_iqr(m,j) Ym_iqr(m,j)],'Edgecolor',colm(m,:),'Facecolor','none','LineWidth',1);
     end
 end
@@ -204,7 +204,7 @@ Lmq = quantile(Lm,[0.025 0.975],1);
 
 % PLOT IT OUT
 fig('ENSO_var vs seasonality'), clf
-set(gcf, 'Units','centimeters', 'Position',[0 0 9 7]) % 1 column width = 9cm
+%set(gcf, 'Units','centimeters', 'Position',[0 0 9 7]) % 1 column width = 9cm
 subplot(2,1,1)
 % plot PDF for TLS fit
 pcolor(xo,yo,Lo_dens'), shading interp
@@ -236,7 +236,7 @@ for m = 1:2*nm
     else mrkr{m} = 's';    str = 'MH';
     end     
     for j = 1:3
-        hm(m) = line(Xms(m,j),Yms(m,j),'MarkerFaceColor',colm(m,:),'marker',mrkr{m},'Markersize',10,'MarkerEdgeColor',bck);
+        hm(m) = line(Xms(m,j),Yms(m,j),'MarkerFaceColor',colm(m,:),'marker',mrkr{m},'Markersize',8,'MarkerEdgeColor',bck);
         %rectangle('Curvature', [1 1],'Position',[Xms(m,j)-w/2 Yms(m,j)-w/2 w w],'Edgecolor',colm(m,:),'Facecolor','none','LineWidth',1);
     end
 end
@@ -258,7 +258,7 @@ labl{2} = 'TLS fit, 95% CI';
 hl = legend(ah,[h2 hci(1)],labl{:}), set(hl,style_l{:}), 
 set(hl,'location','southwest','box','off');
 % export
-hepta_figprint('../../../figs/Fig03_raw',100);
+hepta_figprint('../../../figs/Fig03',100);
 
 
 
@@ -322,7 +322,7 @@ end
 % ====================================
 %  wavelet analysis of PMIP3 data
 % ===================================
-PMIP3 = load('../models/coral_regional_avg.mat');
+PMIP3 = load('../../../data/pmip3/coral_regional_avg.mat');
 
 %exp = {'historical','past1000','midHolocene','piControl'}; 
 exp = {'midHolocene','piControl'}; 
@@ -352,7 +352,7 @@ for ie = 1:nexp
         [rho_m{ie}(im),signif_m{ie}(im),pval_m{ie}(im)] = corr_sig(enso_power,annual_power);       
         clab = ['\rho =  ', sprintf('%3.2g',rho_m{ie}(im)),', p = ',sprintf('%3.2g',pval_m{ie}(im))];
         ttl = [model_names{ie}{im} ' ' exp{ie}];
-        fname = ['../figs/wavelet_' exp{ie} '_' model_names{ie}{im} '_center.pdf'];
+        fname = ['../../figs/wavelet/wavelet_' exp{ie} '_' model_names{ie}{im} '_center.pdf'];
         % plot
         fig('ENSO vs annual cycle'),clf
         subplot(2,1,1)
